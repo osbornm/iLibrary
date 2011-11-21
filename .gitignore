@@ -10,9 +10,8 @@ obj
 *.psess
 *.docstates
 _ReSharper*
-iLibrary\Content\Images\TvShows\*
-iLibrary\Content\Images\Movies\*
-
+/iLibrary/Content/Images/TvShows
+/iLibrary/Content/Images/Movies
 
 
 # Test Results
