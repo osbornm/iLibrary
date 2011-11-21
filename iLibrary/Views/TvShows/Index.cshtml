@@ -1,0 +1,34 @@
+﻿@model IEnumerable<iLibrary.Models.TvShowsBySeason>
+
+@{
+    ViewBag.Title = "TV Shows";
+}
+
+<h2>TV Shows</h2>
+@using (Html.BeginForm()) {
+    <input type="hidden" name="unwatched" value="true" />
+    <input type="submit" value="Unwatched Only" />
+}
+
+@using (Html.BeginForm()) {
+    <input type="hidden" name="all" value="true" />
+    <input type="submit" value="All TV Shows" />
+}
+<ul class="shows">
+    @foreach (var item in Model) {
+    <li>
+        <a class="show" href="@Url.Action("Season", new { ShowName = item.ShowName, Season = item.SeasonNumber })">
+            <img src="@Url.Content(item.PostArtPath)" alt="@item.ShowName" />
+            <p class="img-overlay">@item.UnwatchedEpisodes</p>
+        </a>
+        <header>
+            <a href="@Url.Action("Show", new { ShowName = item.ShowName})">
+                <h2>@item.ShowName</h2>
+            </a>
+            <a href="@Url.Action("Season", new { ShowName = item.ShowName, Season = item.SeasonNumber })">
+                <h3>Season #@item.SeasonNumber</h3>
+            </a>
+        </header>
+    </li>
+    }
+</ul>

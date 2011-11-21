@@ -1,0 +1,44 @@
+﻿@model iLibrary.Infrastructure.TvShow
+
+@{
+    ViewBag.Title = "Season";
+}
+
+<h1>@Model.Name - Season @Model.Season</h1>
+<h2>episodes</h2>
+<table class="list-view">
+    <thead>
+        <tr>
+            <th></th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Time</th>
+            <th>Description</th>
+            <th>File Name</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var item in Model.Episodes.OrderBy(e => e.EpisodeNumber)) {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Episode", new { ShowName = Model.Name, Season = Model.Season, Episode = item.EpisodeNumber })" title="Watch Episode">
+                        <img src="@Url.Content("~/Content/Images/video.png") " alt="Watch Episode" />
+                    </a>
+                     @if (item.PlayCount < 1) {
+                        if (item.Unplayed) {
+                            <img src="@Url.Content("~/Content/Images/unwatched.png")" alt="Watch Episode" />
+                        }
+                        else {
+                            <img src="@Url.Content("~/Content/Images/partialWatch.png")" alt="Watch Episode" />
+                        }
+                    }
+                </td>
+                <td>@item.EpisodeNumber</td>
+                <td>@item.DisplayName</td>
+                <td>@item.Runtime</td>
+                <td>@item.Description</td>
+                <td>@item.PathToFile</td>
+            </tr>
+            }
+    </tbody>
+</table>

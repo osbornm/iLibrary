@@ -1,0 +1,28 @@
+﻿@model IEnumerable<iLibrary.Infrastructure.Episode>
+
+@{
+    ViewBag.Title = "Episode";
+}
+
+<h2>Episode</h2>
+<script>
+    function MarkAsPlayed(id) {
+        alert("video finishded - " + id);
+    }
+</script>
+
+@foreach (var item in Model) {
+    <h2>@item.DisplayName</h2>
+    <video src="@Url.Content(item.PathToFile)" onpause="alert('pause')" onended="alert('ended')" 
+        oncanplay="this.currentTime = @item.BookMarkTime" poster="@Url.Content(item.PathToPosterArt)" controls="controls" onended="MarkAsPlayed(@item.ID)">
+        your browser does not support the video tag
+    </video>
+    if(item.Unplayed){
+        using (Html.BeginForm()) {
+            <input type="hidden" name="ID" value="@item.ID" />
+            <input type="submit" value="Mark as Watched" />
+        }
+    }
+    <hr />
+
+}
